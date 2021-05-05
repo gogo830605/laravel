@@ -31,9 +31,9 @@ return [
     ],
 
     'google' => [
-        'client_id' => '588714765849-p4tsf85c268e7rn5iav863c9tr4csqst.apps.googleusercontent.com',
-        'client_secret' => 'euUbuO13Qw23ODMIXax9Tc2D',
-        'redirect' => 'https://estoretest.in-win.com/en-EU/google/callback',
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => env('GOOGLE_REDIRECT'),
     ],
 
 ];
