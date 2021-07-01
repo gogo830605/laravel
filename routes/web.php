@@ -13,10 +13,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'App\Http\Controllers\WelcomeController@index');
+Route::get('/', 'WelcomeController@index');
 
-Auth::routes();
-Route::get('/google/auth', 'App\Http\Controllers\SocialiteController@redirectToProvider');
-Route::get('/google/auth/callback', 'App\Http\Controllers\SocialiteController@handleProviderCallback');
+Route::namespace('Auth')->group(function() {
+    Route::post('register', 'RegisterController@Register');
+    Route::post('login', 'LoginController@Login');
+});
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('ticket', 'TicketController@add');
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::get('ticket', 'TicketController@list');
+    Route::post('buy-ticket', 'TicketController@buyTicket');
+    Route::get('user-ticket', 'TicketController@userTicket');
+});
+
+// Auth::routes();
+// Route::get('/google/auth', 'App\Http\Controllers\SocialiteController@redirectToProvider');
+// Route::get('/google/auth/callback', 'App\Http\Controllers\SocialiteController@handleProviderCallback');
+
+ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
