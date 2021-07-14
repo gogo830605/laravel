@@ -4,7 +4,7 @@ namespace App\Repositories;
 use App\Models\UserTicket;
 use Str;
 
-class TicketRepository
+class UserTicketRepository
 {
     private $model;
     public $table_name;

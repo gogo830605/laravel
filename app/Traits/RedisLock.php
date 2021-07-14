@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Commons;
+namespace App\Traits;
 
 use Illuminate\Support\Facades\Redis;
 
-class RedisLock
+trait RedisLock
 {
     public function lock(string $value)
     {
