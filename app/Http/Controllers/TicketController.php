@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\TicketRepository;
+use App\Facades\Sms;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
-use Auth, Validator;
+use Illuminate\Support\Facades\Validator;
 
 
 class TicketController extends Controller
@@ -24,17 +25,18 @@ class TicketController extends Controller
 
     public function add(Request $request)
     {
-//        $validator = Validator::make($request->all(), [
-//            'sort' => 'required',
-//            'name' => 'required|unique:tickets,name',
-//            'amount' => 'required'
-//        ]);
-//        if ($validator->fails()) {
-//            return response()->json(['message' => $validator->messages(), 'status' => 400]);
-//        }
-        $request_all = $request->all();
-        if ($this->model->saveTicket($request_all)) {
+        $validator = Validator::make($request->all(), [
+            'sort' => 'required',
+            'name' => 'required|unique:tickets,name',
+            'amount' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->messages(), 'status' => 400]);
+        }
+        if ($this->model->saveTicket($request->all())) {
             return response()->json(['message' => 'insert OK', 'status' => 200]);
+        } else {
+            return response()->json(['message' => 'error', 'status' => 400]);
         }
     }
 
