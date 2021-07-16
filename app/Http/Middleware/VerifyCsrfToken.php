@@ -17,6 +17,7 @@ class VerifyCsrfToken extends Middleware
         'login',
         'ticket',
         'buy-ticket',
-        'logout'
+        'logout',
+        'messages'
     ];
 }
