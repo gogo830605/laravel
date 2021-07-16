@@ -15,10 +15,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'WelcomeController@index');
 
-Route::namespace('Auth')->group(function() {
-    Route::post('register', 'RegisterController@Register');
-    Route::post('login', 'LoginController@Login');
-});
+//Route::namespace('Auth')->group(function() {
+//    Route::post('register', 'ApiRegisterController@Register');
+//    Route::post('login', 'ApiLoginController@Login');
+//});
 
 Route::post('ticket', 'TicketController@add');
 Route::group(['middleware' => 'auth:api'], function () {
@@ -27,8 +27,12 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('user-ticket', 'TicketController@userTicket');
 });
 
-// Auth::routes();
-// Route::get('/google/auth', 'App\Http\Controllers\SocialiteController@redirectToProvider');
-// Route::get('/google/auth/callback', 'App\Http\Controllers\SocialiteController@handleProviderCallback');
+Auth::routes();
+Route::get('/google/auth', 'App\Http\Controllers\SocialiteController@redirectToProvider');
+Route::get('/google/auth/callback', 'App\Http\Controllers\SocialiteController@handleProviderCallback');
 
- Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/chat', 'ChatsController@index');
+Route::get('/messages', 'ChatsController@fetchMessages');
+Route::post('messages', 'ChatsController@sendMessage');
